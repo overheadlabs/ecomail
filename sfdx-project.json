@@ -1,0 +1,19 @@
+{
+    "packageDirectories": [
+        {
+            "path": "force-app",
+            "default": true,
+            "package": "ecomail",
+            "versionName": "ver 0.1",
+            "versionNumber": "0.1.0.NEXT"
+        }
+    ],
+    "name": "ecomail-pg",
+    "namespace": "",
+    "sfdcLoginUrl": "https://login.salesforce.com",
+    "sourceApiVersion": "52.0",
+    "packageAliases": {
+        "ecomail": "0Ho09000000oMBlCAM",
+        "ecomail@0.1.0-1": "04t090000003hHcAAI"
+    }
+}
