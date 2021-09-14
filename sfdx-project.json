@@ -8,12 +8,12 @@
             "versionNumber": "0.1.0.NEXT"
         }
     ],
-    "name": "ecomail-pg",
+    "name": "ecomail",
     "namespace": "",
     "sfdcLoginUrl": "https://login.salesforce.com",
     "sourceApiVersion": "52.0",
     "packageAliases": {
-        "ecomail": "0Ho09000000oMBlCAM",
-        "ecomail@0.1.0-1": "04t090000003hHcAAI"
+        "ecomail": "0Ho09000000CalUCAS",
+        "ecomail@0.1.0-1": "04t09000000v1lQAAQ"
     }
 }

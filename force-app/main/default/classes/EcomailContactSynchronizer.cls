@@ -51,8 +51,4 @@ public without sharing class EcomailContactSynchronizer {
         EcomailApi api = new EcomailApi();
         api.addSubscriberBulk(ecomailListId, leads);
     } 
-
-    public voud synchronizeEcomailToSfdc() {
-        
-    }
 }
