@@ -1,0 +1,23 @@
+<!--
+  @description       : 
+  @author            : aon@overheadlabs.com
+  @group             : 
+  @last modified on  : 2021-09-15
+  @last modified by  : aon@overheadlabs.com
+-->
+<template>
+    <lightning-card  title="Actions">
+        <p class="slds-var-p-horizontal_small">Synchronize to ecomail manually</p>
+        <lightning-layout vertical-align="center" class="x-large" slot="footer">
+            <lightning-layout-item flexibility="auto" padding="around-small">
+                <lightning-button label="Sync all contacts" onclick={handleSyncAllContacts}></lightning-button>
+            </lightning-layout-item>
+            <lightning-layout-item flexibility="auto" padding="around-small">
+                <lightning-button label="Sync all leads" onclick={handleSyncAllLeads}></lightning-button>
+            </lightning-layout-item>
+            <lightning-layout-item flexibility="auto" padding="around-small">
+                <lightning-button label="Sync all campaigns" onclick={handleSyncAllCampaigns}></lightning-button>
+            </lightning-layout-item>
+        </lightning-layout>
+    </lightning-card>
+</template>

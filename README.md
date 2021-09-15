@@ -22,7 +22,7 @@ nebo sfdx cli:
 ## Konfigurace po instalaci
 
 1. Nastavení ecomailu
-    1. Vytvořit záznam v Custom Metadata Type EcomailSetting, pojmenovat ho 'Main' a vyplnit všechny údaje. Vyplnit API key, list ids pro sznchronizace, povolit přes checkboxy které synchronizace mají probíhat.  Pole 'From email', 'Reply to' se používají pro vytváření seznamů kontaktu při synchronizaci kampaní
+    1. Vytvořit záznam v Custom Metadata Type EcomailSetting, pojmenovat ho 'Main' a vyplnit všechny údaje. Vyplnit API key, list ids pro syspo nchronizace, povolit přes checkboxy které synchronizace mají probíhat.  Pole 'From email', 'Reply to' se používají pro vytváření seznamů kontaktu při synchronizaci kampaní
      - List ids jsou číselné id z ecomailu, možno vyčíst z url
     1. Pokud se mají přenášet jiné fieldy než standardní, vytvořit záznamy pro Custom Metadata Type EcomailFieldMapping. Funguje pouze pro fieldy na objektech Contact a Lead
 1. Naschedulování jobů
@@ -38,7 +38,7 @@ nebo sfdx cli:
 - Synchronizují se jen kontakty, leady a kampaně s nadataveným fieldem EcomailSync__c na hodnotu true.
 - Kampaně přenášejí všechny členy kampaně i když jejich hodnota EcomailSync__c je false.
 - Synchronizace probíhá každé dvě hodiny mezi 6 - 20 hodinu.Pro změnu změnte skript výše. 
-- Pro okamžitou sznchronizace spusťtě v developer console příkaz:
+- Pro okamžitou synchronizace spusťte v developer console příkaz:
     - Pro synchronizaci kontaktů
         ```java
         EcomailContactSynchronizer synchronizer = new EcomailContactSynchronizer();
