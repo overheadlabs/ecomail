@@ -1,4 +1,84 @@
 public without sharing class EcomailQueryBuilder {
+    private static final string DT_FORMAT = 'yyyy-MM-dd\'T\'HH:mm:ss.SSS\'Z\'';
+
+    public static String soqlContacts(Datetime sinceLastModifiedDate, Integer limitRecords) {
+        List<String> contactFields = getContactFieldsForSoql();
+        
+        // build SOQL witl standard and custom fields
+        String soql = 'SELECT '
+                    + String.join(contactFields, ', ') + 
+                    + ' FROM Contact '
+                    + ' WHERE EcomailSync__c = true AND Email!=\'\'';
+
+        if (sinceLastModifiedDate != null) {
+            soql += ' AND LastModifiedDate >= ' + sinceLastModifiedDate.formatGmt(DT_FORMAT);
+        }
+
+        if(limitRecords != null) {
+            soql += ' LIMIT ' + limitRecords; 
+        }
+
+        return soql;
+    }
+
+    public static String soqlLeads(Datetime sinceLastModifiedDate, Integer limitRecords) {
+        List<String> leadFields = getLeadFieldsForSoql();
+        
+        // build SOQL witl standard and custom fields
+        String soql = 'SELECT '
+                    + String.join(leadFields, ', ') + 
+                    + ' FROM Lead '
+                    + ' WHERE EcomailSync__c = true AND Email!=\'\'';
+
+        if (sinceLastModifiedDate != null) {
+            soql += ' AND LastModifiedDate >= ' + sinceLastModifiedDate.formatGmt(DT_FORMAT);
+        }
+
+        if(limitRecords != null) {
+            soql += ' LIMIT ' + limitRecords; 
+        }
+
+        return soql;
+    }
+
+    public static String soqlCampaigns(Datetime sinceLastModifiedDate, Integer limitRecords) {
+        List<String> contactFields = getContactFieldsForSoql();
+        Set<String> updatedContactFields =new Set<String>();
+
+        for (String each : contactFields) {
+            String newStr = 'Contact.' + each;
+            System.debug(newStr);
+            updatedContactFields.add(newStr);
+        }
+
+        List<String> leadFields = getLeadFieldsForSoql();
+        Set<String> updatedLeadFields = new Set<String>();
+
+        for (String each : leadFields) {
+            String newStr = 'Lead.' + each;
+            System.debug(newStr);
+            updatedLeadFields.add(newStr);
+        }
+
+        String soqlSubqeury = ' (SELECT Type, ' + String.join(new List<String>(updatedContactFields), ', ') + ', ' + String.join(new List<String>(updatedLeadFields), ', ') + ' FROM CampaignMembers WHERE Email != \'\') ';
+        
+        String soql = 'SELECT Name, EcomailCampaignId__c, EcomailListId__c, EcomailSync__c, ' 
+                    + soqlSubqeury
+                    + 'FROM Campaign '
+                    + 'WHERE EcomailSync__c = true ';
+
+        if (sinceLastModifiedDate != null) {
+            System.debug(' AND LastModifiedDate >= ' + sinceLastModifiedDate.formatGmt(DT_FORMAT));
+            soql += ' AND LastModifiedDate >= ' + sinceLastModifiedDate.formatGmt(DT_FORMAT);
+        }
+
+        if(limitRecords != null) {
+            soql += ' LIMIT ' + limitRecords; 
+        }
+
+        return soql;
+    }
+
     public static List<String> getContactFieldsForSoql() {
         Set<String> fields = new Set<String> { 'Id', 'Name', 'FirstName', 'LastName', 'Email', 'MailingAddress', 'Phone'};
         fields.addAll(getContactSfdcCustomFields());

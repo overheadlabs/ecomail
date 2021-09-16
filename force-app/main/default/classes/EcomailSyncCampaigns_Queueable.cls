@@ -2,7 +2,7 @@ public with sharing class EcomailSyncCampaigns_Queueable implements Queueable, D
     public void execute(QueueableContext context) {
         EcomailCampaignSynchronizer synchronizer = new EcomailCampaignSynchronizer();
 
-        synchronizer.synchronizeAllCampaignsToEcomail();
+        synchronizer.synchronizeChangedCampaignsToEcomail();
         synchronizer.synchronizeStatsFromEcomail();
     }
 }

@@ -8,10 +8,10 @@ public with sharing class EcomailSettingsController {
         try {
             switch on objName {
                 when 'Contact' {
-                    contactSyncer.syncAllContacts();
+                    Database.executeBatch(new EcomailSyncContacts_Batchable(), 2000);
                 }
                 when 'Lead' {
-                    contactSyncer.syncAllLeads();
+                    Database.executeBatch(new EcomailSyncLeads_Batchable(), 2000);
                 }
                 when 'Campaign' {
                     campaignSyncer.synchronizeAllCampaignsToEcomail();

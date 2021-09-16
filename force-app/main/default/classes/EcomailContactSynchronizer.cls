@@ -1,12 +1,16 @@
 public without sharing class EcomailContactSynchronizer {
     public void syncAllContacts() {
-        List<String> contactFields = EcomailQueryBuilder.getContactFieldsForSoql();
+        String soql = EcomailQueryBuilder.soqlContacts(null, null);
         
-        // build SOQL witl standard and custom fields
-        String soql = 'SELECT '
-                    + String.join(contactFields, ', ') + 
-                    + ' FROM Contact '
-                    + ' WHERE EcomailSync__c = true AND Email!=\'\'';
+        List<Contact> contacts = Database.query(soql);
+        this.synchronizeContactsToEcomail(contacts);
+    }
+
+    public void syncChangedContacts() {
+        Datetime since = Datetime.now();
+        since.addHours(-2);
+        // TODO: order by synced time to sync 
+        String soql = EcomailQueryBuilder.soqlContacts(since, 50000);
         
         List<Contact> contacts = Database.query(soql);
         this.synchronizeContactsToEcomail(contacts);
@@ -27,14 +31,19 @@ public without sharing class EcomailContactSynchronizer {
     }
 
     public void syncAllLeads() {
-        List<String> leadFields = EcomailQueryBuilder.getLeadFieldsForSoql();
+        String soql = EcomailQueryBuilder.soqlLeads(null, null);
+
         
-        // build SOQL witl standard and custom fields
-        String soql = 'SELECT '
-                    + String.join(leadFields, ', ') + 
-                    + ' FROM Lead '
-                    + ' WHERE EcomailSync__c = true AND Email!=\'\'';
-        
+        List<Lead> leads = Database.query(soql);
+        this.synchronizeLeadsToEcomail(leads);
+    }
+
+    public void syncChangedLeads() {
+        Datetime since = Datetime.now();
+        since.addHours(-2);
+
+        String soql = EcomailQueryBuilder.soqlLeads(since, 50000);
+
         List<Lead> leads = Database.query(soql);
         this.synchronizeLeadsToEcomail(leads);
     }

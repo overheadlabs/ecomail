@@ -1,31 +1,16 @@
 public without sharing class EcomailCampaignSynchronizer {
     
     public List<Campaign> getAllCampaignsToSync() {
-        List<String> contactFields = EcomailQueryBuilder.getContactFieldsForSoql();
-        Set<String> updatedContactFields =new Set<String>();
-
-        for (String each : contactFields) {
-            String newStr = 'Contact.' + each;
-            System.debug(newStr);
-            updatedContactFields.add(newStr);
-        }
-
-        List<String> leadFields = EcomailQueryBuilder.getLeadFieldsForSoql();
-        Set<String> updatedLeadFields = new Set<String>();
-
-        for (String each : leadFields) {
-            String newStr = 'Lead.' + each;
-            System.debug(newStr);
-            updatedLeadFields.add(newStr);
-        }
-
-        String soqlSubqeury = ' (SELECT Type, ' + String.join(new List<String>(updatedContactFields), ', ') + ', ' + String.join(new List<String>(updatedLeadFields), ', ') + ' FROM CampaignMembers WHERE Email != \'\') ';
+        String soql = EcomailQueryBuilder.soqlCampaigns(null, null);
         
-        String soql = 'SELECT Name, EcomailCampaignId__c, EcomailListId__c, EcomailSync__c, ' 
-                    + soqlSubqeury
-                    + 'FROM Campaign '
-                    + 'WHERE EcomailSync__c = true ';
-        
+        return Database.query(soql);
+    }
+
+    public List<Campaign> getChangedCampaignsToSync() {
+        Datetime since = Datetime.now();
+        since.addHours(-2);
+
+        String soql = EcomailQueryBuilder.soqlCampaigns(since, 50000);
         return Database.query(soql);
     }
 
@@ -61,6 +46,20 @@ public without sharing class EcomailCampaignSynchronizer {
         }
 
         List<Campaign> allCampaigns = this.getAllCampaignsToSync();
+        List<Campaign> campaignsToCreate = this.filterCampaignsToCreate(allCampaigns);
+        List<Campaign> campaignsToUpdate = this.filterCampaignsToUpdate(allCampaigns);
+
+        synchronizeCampaigns(campaignsToCreate, campaignsToUpdate);
+    }
+
+    public void synchronizeChangedCampaignsToEcomail() {
+        EcomailSetting__mdt settings = EcomailCustomMetadataUtils.getSettings();
+
+        if (!settings.SyncCampaigns__c) {
+            return;
+        }
+
+        List<Campaign> allCampaigns = this.getChangedCampaignsToSync();
         List<Campaign> campaignsToCreate = this.filterCampaignsToCreate(allCampaigns);
         List<Campaign> campaignsToUpdate = this.filterCampaignsToUpdate(allCampaigns);
 

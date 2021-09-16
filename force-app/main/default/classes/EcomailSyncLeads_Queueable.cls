@@ -1,7 +1,7 @@
-public with sharing class EcomailSyncContacts_Queueable implements Queueable {
+public with sharing class EcomailSyncLeads_Queueable implements Queueable {
     public void execute(QueueableContext context) {
         EcomailContactSynchronizer synchronizer = new EcomailContactSynchronizer();
 
-        synchronizer.syncChangedContacts();
+        synchronizer.syncChangedLeads();
     }
 }

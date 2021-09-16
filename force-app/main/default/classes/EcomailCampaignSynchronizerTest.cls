@@ -19,6 +19,17 @@
         Test.stopTest();
     }
 
+    @isTest public static void testSyncChangedCampaignsToEcomail() {
+        EcomailCampaignSynchronizer syncer = new EcomailCampaignSynchronizer();
+
+        Test.setMock(HttpCalloutMock.class, new EcomailApiCalloutMock());
+        Test.startTest();
+        
+        syncer.synchronizeChangedCampaignsToEcomail();
+        
+        Test.stopTest();
+    }
+
     @isTest public static void testSyncampaignStatsFromEcomail() {
         EcomailCampaignSynchronizer syncer = new EcomailCampaignSynchronizer();
 
