@@ -29,8 +29,13 @@ nebo sfdx cli:
     1. Otevřít Developer Console
     1. Spustit příkazy: 
     ```java
-    System.schedule('Ecomail Campaigns', '0 0 6,8,10,12,14,16,18,20 * * ?', new EcomailSyncCampaigns__Schedulable() );
-    System.schedule('Ecomail Contacts', '0 0 6,8,10,12,14,16,18,20 * * ?', new EcomailSyncContacts__Schedulable() );
+    System.schedule('Ecomail Campaigns Changed', '0 0 6,8,10,12,14,16,18,20 * * ?', new EcomailSyncCampaigns__Schedulable(false) );
+    System.schedule('Ecomail Contacts Changed', '0 0 6,8,10,12,14,16,18,20 * * ?', new EcomailSyncContacts__Schedulable(false) );
+    System.schedule('Ecomail Leads Changed', '0 0 6,8,10,12,14,16,18,20 * * ?', new EcomailSyncLeads__Schedulable(false) );
+
+    System.schedule('Ecomail Campaigns All', '0 0 1 * * ?', new EcomailSyncCampaigns__Schedulable(true) );
+    System.schedule('Ecomail Contacts All', '0 0 1 * * ?', new EcomailSyncContacts__Schedulable(true) );
+    System.schedule('Ecomail Leads All', '0 0 1 * * ?', new EcomailSyncLeads__Schedulable(true) );
     ```
 
 ## Používání
@@ -38,7 +43,7 @@ nebo sfdx cli:
 - Synchronizují se jen kontakty, leady a kampaně s nadataveným fieldem EcomailSync__c na hodnotu true.
 - Kampaně přenášejí všechny členy kampaně i když jejich hodnota EcomailSync__c je false.
 - Synchronizace probíhá každé dvě hodiny mezi 6 - 20 hodinu.Pro změnu změnte skript výše. 
-- Pro okamžitou synchronizace spusťte v developer console příkaz:
+- Pro okamžitou synchronizace spusťte aplikaci Ecomail nebo přes Developer Console:
     - Pro synchronizaci kontaktů
         ```java
         EcomailContactSynchronizer synchronizer = new EcomailContactSynchronizer();
