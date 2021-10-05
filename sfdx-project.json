@@ -2,20 +2,18 @@
     "packageDirectories": [
         {
             "path": "force-app",
-            "default": true,
-            "package": "ecomail",
+            "package": "Ecomail",
             "versionName": "ver 0.1",
-            "versionNumber": "0.1.0.NEXT"
+            "versionNumber": "0.1.0.NEXT",
+            "default": true
         }
     ],
     "name": "ecomail",
-    "namespace": "",
+    "namespace": "ovhl",
     "sfdcLoginUrl": "https://login.salesforce.com",
     "sourceApiVersion": "52.0",
     "packageAliases": {
-        "ecomail": "0Ho09000000CalUCAS",
-        "ecomail@0.1.0-1": "04t09000000v1lQAAQ",
-        "ecomail@0.1.0-2": "04t09000000v2kDAAQ",
-        "ecomail@0.1.1-1": "04t09000000v2kIAAQ"
+        "Ecomail": "0Ho09000000CanVCAS",
+        "Ecomail@0.1.0~1": "04t09000000v7QnAAI"
     }
 }

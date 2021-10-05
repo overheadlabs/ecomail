@@ -12,11 +12,11 @@
 
 Přes url: 
 
-https://login.salesforce.com/packaging/installPackage.apexp?p0=04t09000000v2kIAAQ
+https://login.salesforce.com/packaging/installPackage.apexp?p0=04t09000000v7QnAAI
 
 nebo sfdx cli:
 
-`sfdx force:package:install -p 04t09000000v2kIAAQ`
+`sfdx force:package:install -p 04t09000000v7QnAAI`
 
 
 ## Konfigurace po instalaci
