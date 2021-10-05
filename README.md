@@ -29,13 +29,12 @@ nebo sfdx cli:
     1. Otevřít Developer Console
     1. Spustit příkazy: 
     ```java
-    System.schedule('Ecomail Campaigns Changed', '0 0 6,8,10,12,14,16,18,20 * * ?', new EcomailSyncCampaigns__Schedulable(false) );
-    System.schedule('Ecomail Contacts Changed', '0 0 6,8,10,12,14,16,18,20 * * ?', new EcomailSyncContacts__Schedulable(false) );
-    System.schedule('Ecomail Leads Changed', '0 0 6,8,10,12,14,16,18,20 * * ?', new EcomailSyncLeads__Schedulable(false) );
+    System.schedule('Ecomail Campaigns Changed', '0 0 6,8,10,12,14,16,18,20 * * ?', new ovhl.EcomailSyncCampaigns_Schedulable() );
+    System.schedule('Ecomail Contacts Changed', '0 0 6,8,10,12,14,16,18,20 * * ?', new ovhl.EcomailSyncContacts_Schedulable(false) );
+    System.schedule('Ecomail Leads Changed', '0 0 6,8,10,12,14,16,18,20 * * ?', new ovhl.EcomailSyncLeads_Schedulable(false) );
 
-    System.schedule('Ecomail Campaigns All', '0 0 1 * * ?', new EcomailSyncCampaigns__Schedulable(true) );
-    System.schedule('Ecomail Contacts All', '0 0 1 * * ?', new EcomailSyncContacts__Schedulable(true) );
-    System.schedule('Ecomail Leads All', '0 0 1 * * ?', new EcomailSyncLeads__Schedulable(true) );
+    System.schedule('Ecomail Contacts All', '0 0 1 * * ?', new ovhl.EcomailSyncContacts_Schedulable(true) );
+    System.schedule('Ecomail Leads All', '0 0 1 * * ?', new ovhl.EcomailSyncLeads_Schedulable(true) );
     ```
 
 ## Používání
